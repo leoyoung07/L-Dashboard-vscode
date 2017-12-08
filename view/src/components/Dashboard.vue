@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="dashborad">
     <h1>{{response}}</h1>
     <input type="text" v-model="msg">
     <button @click="sendMsg();" v-bind:disabled="!wsEnabled">send</button>
@@ -8,23 +8,24 @@
 
 <script>
 export default {
-  name: "app",
+  name: "dashborad",
+  props: {
+    ws: Object
+  },
   data() {
     return {
-      ws: null,
-      msg: "",
+      msg: '',
       wsEnabled: false,
-      response: "Hello, world"
+      response: ''
     };
   },
   created: function() {
-    var that = this;
-    this.ws = new WebSocket("ws://localhost:7269");
-    this.ws.onmessage = function(e) {
-      that.response = e.data;
+    this.ws.init('ws://localhost:7269');
+    this.ws.onmessage = (e) => {
+      this.response = e.data;
     };
-    this.ws.onopen = function(e) {
-      that.wsEnabled = true;
+    this.ws.onopen = (e) => {
+      this.wsEnabled = true;
     };
   },
   methods: {
