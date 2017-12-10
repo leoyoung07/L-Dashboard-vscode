@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Dashboard from '../../src/components/Dashboard.vue';
-import WebSocketService from '../../src/services/WebSocketService';
+import WebSocketServiceMock from '../mock/WebSocketServiceMock';
 
 describe('Dashboard.vue', () => {
   it('pass value by props', () => {
@@ -8,11 +8,13 @@ describe('Dashboard.vue', () => {
       el: document.createElement('div'),
       render: (h) => h(Dashboard, {
         props: {
-          ws: new WebSocketService()
+          ws: new WebSocketServiceMock()
         }
       })
     });
-    expect(vm.$el.querySelector('h1').textContent).toBe('');
+    setTimeout(() => {
+      expect(vm.$el.querySelector('button').disabled).toBe(false);
+    }, 100);
   });
 });
 
