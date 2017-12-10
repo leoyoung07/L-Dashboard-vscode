@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand('extension.showDashboard', async () => {
     // The code you place here will be executed every time your command is executed
 
-    const indexHtml = 'file:///' + path.resolve(__dirname, 'view/index.html');
+    const indexHtml = 'file:///' + path.resolve(__dirname, '../view/index.html');
     await vscode.commands.executeCommand('vscode.previewHtml', vscode.Uri.parse(indexHtml));
     setupWebsocketServer();
 
