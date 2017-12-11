@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app black-theme">
+  <div id="app" class="app app-black-theme">
     <dashboard v-bind:ws="ws"></dashboard>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
   margin: 0;
   padding: 0;
 }
-.black-theme {
+.app-black-theme {
   background: #1E1E1E;
   color: white;
 }

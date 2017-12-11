@@ -1,16 +1,14 @@
 <template>
   <div id="dashborad" class="dashboard">
-    <div class="wrapper">
-      <div class="left">
-        <h2 class="sidebar-title">L-Dashboard</h2>
+    <div class="dashboard-wrapper">
+      <div class="dashboard-left">
         <dashboard-nav v-bind:items="items"></dashboard-nav>
       </div>
-      <div class="right">
-        <h1>Panel</h1>
+      <div class="dashboard-right">
         <router-view></router-view>
       </div>
     </div>
-    <div class="debug">
+    <div class="dashboard-debug">
       <h1>{{response}}</h1>
       <input type="text" v-model="msg">
       <button @click="sendMsg();" v-bind:disabled="!wsEnabled">send</button>
@@ -19,34 +17,32 @@
 </template>
 
 <script>
-
+'use strict';
 import DashboardNav from "./DashboardNav.vue";
+import DashboardView from "./DashboardView.vue";
+import ViewMonitor from "./ViewMonitor.vue";
+import ViewToDoList from "./ViewToDoList.vue";
+import ViewRegExpTool from "./ViewRegExpTool.vue";
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-const Monitor = {
-  template: '<div>monitor</div>'
-};
-const ToDoList = {
-  template: '<div>to do list</div>'
-};
-const RegExpTool = {
-  template: '<div>regExp tool</div>'
-};
 const router = new VueRouter({
   routes: [
-    { path: '/dashboard/monitors', component: Monitor },
-    { path: '/dashboard/to_do_list', component: ToDoList },
-    { path: '/dashboard/reg_exp_tool', component: RegExpTool }
+    { path: '/dashboard', component: DashboardView,
+      children: [
+        { path: 'monitors', component: ViewMonitor },
+        { path: 'to_do_list', component: ViewToDoList },
+        { path: 'reg_exp_tool', component: ViewRegExpTool }
+      ]
+    }
   ]
-})
+});
 export default {
   name: "dashborad",
   props: {
     ws: Object
   },
-  router: router,
   data() {
     return {
       msg: "",
@@ -88,8 +84,10 @@ export default {
       this.ws.send(this.msg);
     }
   },
+  router: router,
   components: {
-    DashboardNav
+    DashboardNav,
+    DashboardView
   }
 };
 </script>
@@ -100,35 +98,30 @@ export default {
   width: 100%;
   height: 100%;
 }
-.wrapper {
+.dashboard-wrapper {
   border: 1px white solid;
   display: flex;
   flex-grow: 8;
   justify-content: center;
 }
-.left,
-.right {
+.dashboard-left,
+.dashboard-right {
   display: flex;
   align-items: stretch;
   flex-direction: column;
 }
-.left {
+.dashboard-left {
   flex-grow: 1;
   order: 1;
   border-right: 1px solid white;
 }
-.right {
+.dashboard-right {
   flex-grow: 9;
   order: 2;
 }
-.debug {
+.dashboard-debug {
   border: 1px solid white;
   flex-grow: 2;
 }
-.sidebar-title {
-  border-bottom: 1px solid white;
-  text-align: center;
-  padding: 13px 0;
-  margin: 0 20px;
-}
+
 </style>
