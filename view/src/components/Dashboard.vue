@@ -3,17 +3,11 @@
     <div class="wrapper">
       <div class="left">
         <h2 class="sidebar-title">L-Dashboard</h2>
-        <ul class="nav">
-          <li v-for="item in items" v-bind:key="item.id">
-            <a href="#">
-              <i></i>
-              <p>{{ item.name }}</p>
-            </a>
-          </li>
-        </ul>
+        <dashboard-nav v-bind:items="items"></dashboard-nav>
       </div>
       <div class="right">
         <h1>Panel</h1>
+        <router-view></router-view>
       </div>
     </div>
     <div class="debug">
@@ -25,11 +19,34 @@
 </template>
 
 <script>
+
+import DashboardNav from "./DashboardNav.vue";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+const Monitor = {
+  template: '<div>monitor</div>'
+};
+const ToDoList = {
+  template: '<div>to do list</div>'
+};
+const RegExpTool = {
+  template: '<div>regExp tool</div>'
+};
+const router = new VueRouter({
+  routes: [
+    { path: '/dashboard/monitors', component: Monitor },
+    { path: '/dashboard/to_do_list', component: ToDoList },
+    { path: '/dashboard/reg_exp_tool', component: RegExpTool }
+  ]
+})
 export default {
   name: "dashborad",
   props: {
     ws: Object
   },
+  router: router,
   data() {
     return {
       msg: "",
@@ -38,15 +55,21 @@ export default {
       items: [
         {
           id: "monitors",
-          name: "Monitors"
+          name: "Monitors",
+          path: "/dashboard/monitors",
+          icon: "icon-monitors"
         },
         {
           id: "to_do_list",
-          name: "To Do List"
+          name: "To Do List",
+          path: "/dashboard/to_do_list",
+          icon: "icon-to_do_list"
         },
         {
           id: "reg_exp_tool",
-          name: "RegExp Tool"
+          name: "RegExp Tool",
+          path: "/dashboard/reg_exp_tool",
+          icon: "icon-reg_exp_tool"
         }
       ]
     };
@@ -64,6 +87,9 @@ export default {
     sendMsg: function() {
       this.ws.send(this.msg);
     }
+  },
+  components: {
+    DashboardNav
   }
 };
 </script>
@@ -104,33 +130,5 @@ export default {
   text-align: center;
   padding: 13px 0;
   margin: 0 20px;
-}
-.nav {
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  list-style: none;
-}
-.nav > li {
-  position: relative;
-  display: block;
-}
-.nav > li a {
-  color: white;
-  text-decoration: none;
-  margin: 10px 0px;
-  padding-left: 25px;
-  padding-right: 25px;
-  opacity: 0.7;
-  position: relative;
-  display: block;
-  padding: 10px 15px;
-}
-.nav > li p {
-  margin: 0;
-  line-height: 30px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
 }
 </style>
