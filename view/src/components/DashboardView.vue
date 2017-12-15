@@ -1,13 +1,14 @@
 <template>
   <div class="dashboard-view-wrapper">
-    <h1>Panel</h1>
+    <h1>{{title}}</h1>
     <router-view></router-view>
   </div>
 </template>
 <script>
 'use strict';
 export default {
-  name: 'dashboard-view'
+  name: 'dashboard-view',
+  props: ['title']
 };
 </script>
 <style>
@@ -16,6 +17,7 @@ export default {
   height: 100%;
   margin: 0;
   padding: 0;
+  padding: 20px 40px;
 }
 </style>
 

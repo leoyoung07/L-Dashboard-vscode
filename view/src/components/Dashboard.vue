@@ -17,27 +17,15 @@
 </template>
 
 <script>
-'use strict';
+"use strict";
 import DashboardNav from "./DashboardNav.vue";
-import DashboardView from "./DashboardView.vue";
-import ViewMonitor from "./ViewMonitor.vue";
-import ViewToDoList from "./ViewToDoList.vue";
-import ViewRegExpTool from "./ViewRegExpTool.vue";
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import DashboardRoute from "../routes/DashboardRoute";
+
 Vue.use(VueRouter);
 
-const router = new VueRouter({
-  routes: [
-    { path: '/dashboard', component: DashboardView,
-      children: [
-        { path: 'monitors', component: ViewMonitor },
-        { path: 'to_do_list', component: ViewToDoList },
-        { path: 'reg_exp_tool', component: ViewRegExpTool }
-      ]
-    }
-  ]
-});
+const router = new VueRouter(DashboardRoute);
 export default {
   name: "dashborad",
   props: {
@@ -86,8 +74,7 @@ export default {
   },
   router: router,
   components: {
-    DashboardNav,
-    DashboardView
+    DashboardNav
   }
 };
 </script>
@@ -99,7 +86,6 @@ export default {
   height: 100%;
 }
 .dashboard-wrapper {
-  border: 1px white solid;
   display: flex;
   flex-grow: 8;
   justify-content: center;
@@ -120,8 +106,7 @@ export default {
   order: 2;
 }
 .dashboard-debug {
-  border: 1px solid white;
+  border-top: 1px solid white;
   flex-grow: 2;
 }
-
 </style>

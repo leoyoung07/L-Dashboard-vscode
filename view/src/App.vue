@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app app-black-theme">
-    <dashboard v-bind:ws="ws"></dashboard>
+    <dashboard v-bind:ws="ws" v-bind:storageService="storageService"></dashboard>
   </div>
 </template>
 
