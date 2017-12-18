@@ -2,7 +2,7 @@
   <div class="v-todo-wrapper">
     <h3>{{formattedDate}}</h3>
     <div class="v-todo-edit">
-      <input type="text" class="v-todo-input" v-model="currentItem.text" placeholder="What needs to be done?">
+      <input type="text" class="v-todo-input" v-model="currentItem.text" @keypress.enter="addItem" placeholder="What needs to be done?">
       <button v-on:click="addItem" class="v-todo-btn-add">ADD</button>
     </div>
     <ul class="v-todo-list">
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      items: [],
+      items: null,
       currentItem: {}
     };
   },
@@ -68,7 +68,7 @@ export default {
   watch: {
     items: {
       handler: async function(val, oldVal) {
-        await this.storageService.update("todo-items", val);
+        await this.storageService.update(`todo-items-${this.date}`, val);
       },
       deep: true
     }
@@ -78,7 +78,7 @@ export default {
   },
   async created() {
     console.log("created", this.items);
-    this.items = await this.storageService.get("todo-items");
+    this.items = await this.storageService.get(`todo-items-${this.date}`);
   },
   beforeMount() {
     console.log("beforeMount", this.items);
