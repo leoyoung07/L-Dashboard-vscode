@@ -11,7 +11,7 @@
     <div class="dashboard-debug">
       <h1>{{response}}</h1>
       <input type="text" v-model="msg">
-      <button @click="sendMsg();" v-bind:disabled="!wsEnabled">send</button>
+      <button id="debugSend" @click="sendMsg();" v-bind:disabled="!wsEnabled">send</button>
     </div>
   </div>
 </template>

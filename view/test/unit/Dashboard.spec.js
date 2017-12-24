@@ -2,18 +2,19 @@ import Vue from 'vue';
 import Dashboard from '../../src/components/Dashboard.vue';
 import WebSocketServiceMock from '../mock/WebSocketServiceMock';
 
+Dashboard.init({
+  ws: new WebSocketServiceMock()
+});
+
 describe('Dashboard.vue', () => {
-  it('pass value by props', () => {
+  it('pass value by props', (done) => {
     const vm = new Vue({
       el: document.createElement('div'),
-      render: (h) => h(Dashboard, {
-        props: {
-          ws: new WebSocketServiceMock()
-        }
-      })
+      render: (h) => h(Dashboard)
     });
     setTimeout(() => {
-      expect(vm.$el.querySelector('button').disabled).toBe(false);
+      expect(vm.$el.querySelector('button#debugSend').disabled).toBe(false);
+      done();
     }, 100);
   });
 });
