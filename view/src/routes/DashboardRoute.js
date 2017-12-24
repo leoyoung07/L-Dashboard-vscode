@@ -1,10 +1,14 @@
 'use strict';
 import DashboardView from "../components/DashboardView.vue";
-import moment from "moment";
 import StorageService from "../services/StorageService";
 import ViewMonitor from "../components/ViewMonitor.vue";
 import ViewToDoList from "../components/ViewToDoList.vue";
 import ViewRegExpTool from "../components/ViewRegExpTool.vue";
+
+ViewToDoList.init({
+  storageService: new StorageService()
+});
+
 export default {
   routes: [
     {
@@ -25,12 +29,13 @@ export default {
       component: DashboardView,
       children: [
         {
-          path: "",
+          path: ":date",
           component: ViewToDoList,
-          props: {
-            date: moment().format("YYYYMMDD"),
-            storageService: new StorageService()
-          }
+          props: true
+        },
+        {
+          path: "",
+          redirect: "today"
         }
       ],
       props: {

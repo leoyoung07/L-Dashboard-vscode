@@ -25,11 +25,13 @@ import DashboardRoute from "../routes/DashboardRoute";
 
 Vue.use(VueRouter);
 
+let ws = null;
+
 const router = new VueRouter(DashboardRoute);
 export default {
   name: "dashborad",
-  props: {
-    ws: Object
+  init(options) {
+    ws = options.ws;
   },
   data() {
     return {
@@ -59,17 +61,17 @@ export default {
     };
   },
   created: function() {
-    this.ws.init("ws://localhost:7269");
-    this.ws.onmessage = e => {
+    ws.init("ws://localhost:7269");
+    ws.onmessage = e => {
       this.response = e.data;
     };
-    this.ws.onopen = e => {
+    ws.onopen = e => {
       this.wsEnabled = true;
     };
   },
   methods: {
     sendMsg: function() {
-      this.ws.send(this.msg);
+      ws.send(this.msg);
     }
   },
   router: router,

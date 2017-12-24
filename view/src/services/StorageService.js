@@ -13,6 +13,7 @@ export default class StorageService {
   }
   update(itemKey, itemData) {
     return new Promise(resolve => {
+      console.log('update', itemData);
       localStorage.setItem(itemKey, JSON.stringify(itemData));
       resolve();
     });

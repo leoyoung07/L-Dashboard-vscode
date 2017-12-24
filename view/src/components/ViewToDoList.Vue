@@ -1,15 +1,16 @@
 <template>
   <div class="v-todo-wrapper">
+    <widget-date-picker @date-select-change="onDateSelectChange" :date="currentDate"></widget-date-picker>
     <h3>{{formattedDate}}</h3>
     <div class="v-todo-edit">
-      <input type="text" class="v-todo-input" v-model="currentItem.text" @keypress.enter="addItem" placeholder="What needs to be done?">
-      <button v-on:click="addItem" class="v-todo-btn-add">ADD</button>
+      <input type="text" class="v-todo-input" v-model="currentItem.text" @keypress.enter="addItem" @blur="setCurrent({})" placeholder="What needs to be done?">
+      <button @click="addItem" class="v-todo-btn-add">ADD</button>
     </div>
     <ul class="v-todo-list">
-      <li v-for="(item, index) in items" v-bind:key="item.id" v-bind:class="{'v-todo-item-done': item.done}">
+      <li v-for="(item, index) in items" :key="item.id" :class="{'v-todo-item-done': item.done}">
         <input type="checkbox" class="v-todo-checkbox" v-model="item.done">
-        <span v-on:click="setCurrent(item)" class="v-todo-text">{{ item.text }}</span>
-        <button v-on:click="removeItem(index)" class="v-todo-btn-del">X</button>
+        <span @click="setCurrent(item)" class="v-todo-text">{{ item.text }}</span>
+        <button @click="removeItem(index)" class="v-todo-btn-del">X</button>
       </li>
     </ul>
   </div>
@@ -18,16 +19,24 @@
 <script>
 "use strict";
 import moment from "moment";
+import WidgetDatePicker from "./WidgetDatePicker.vue";
+let storageService = null;
 export default {
   name: "view-to-do-list",
   props: {
-    date: String,
-    storageService: Object
+    date: String
+  },
+  components: {
+    WidgetDatePicker
+  },
+  init(options) {
+    storageService = options.storageService;
   },
   data() {
     return {
       items: null,
-      currentItem: {}
+      currentItem: {},
+      currentDate: this.date
     };
   },
   methods: {
@@ -44,10 +53,24 @@ export default {
       if (this.currentItem.text.trim() === "") {
         return;
       }
-      this.currentItem.id = this.nextItemId;
-      this.currentItem.done = false;
-      this.items.push(this.currentItem);
+      this.items.push({
+        id: this.nextItemId,
+        text: this.currentItem.text,
+        done: false
+      });
       this.currentItem = {};
+    },
+    fetchData: async function() {
+      this.currentDate = this.date;
+      if (!this.currentDate || this.currentDate === "today") {
+        this.currentDate = moment().format("YYYYMMDD");
+      }
+      console.log("fetchData", this.currentDate);
+      this.items = await storageService.get(`todo-items-${this.currentDate}`);
+    },
+    onDateSelectChange: function(date) {
+      console.log('onDateSelectChange', date);
+      this.$router.push(`/dashboard/to_do_list/${date}`);
     }
   },
   computed: {
@@ -62,23 +85,24 @@ export default {
       return max + 1;
     },
     formattedDate: function() {
-      return moment(this.date).format("YYYY-MM-DD");
+      return moment(this.currentDate).format("YYYY-MM-DD");
     }
   },
   watch: {
     items: {
       handler: async function(val, oldVal) {
-        await this.storageService.update(`todo-items-${this.date}`, val);
+        await storageService.update(`todo-items-${this.currentDate}`, val);
       },
       deep: true
-    }
+    },
+    $route: "fetchData"
   },
   beforeCreate() {
     console.log("beforeCreate", this.items);
   },
-  async created() {
+  created() {
     console.log("created", this.items);
-    this.items = await this.storageService.get(`todo-items-${this.date}`);
+    this.fetchData();
   },
   beforeMount() {
     console.log("beforeMount", this.items);

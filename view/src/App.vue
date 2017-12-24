@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app app-black-theme">
-    <dashboard v-bind:ws="ws" v-bind:storageService="storageService"></dashboard>
+    <dashboard></dashboard>
   </div>
 </template>
 
@@ -8,11 +8,14 @@
 import Dashboard from "./components/Dashboard.vue";
 import WebSocketServiceMock from "../test/mock/WebSocketServiceMock";
 
+Dashboard.init({
+  ws: new WebSocketServiceMock()
+});
+
 export default {
   name: "app",
   data() {
     return {
-      ws: new WebSocketServiceMock()
     };
   },
   components: {
