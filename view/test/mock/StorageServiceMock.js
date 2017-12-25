@@ -6,17 +6,17 @@ export default class StorageServiceMock {
         console.log(key);
         resolve([{
             id: 1,
-            text: "to do 1",
+            text: 'to do 1',
             done: true
           },
           {
             id: 2,
-            text: "to do 2",
+            text: 'to do 2',
             done: false
           },
           {
             id: 3,
-            text: "to do 3",
+            text: 'to do 3',
             done: false
           }
         ]);

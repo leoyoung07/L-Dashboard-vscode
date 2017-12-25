@@ -32,7 +32,7 @@ describe('DashboardNav.vue', () => {
     ];
     const vm = new Vue({
       el: document.createElement('div'),
-      render: (h) => h(DashboardNav, {
+      render: h => h(DashboardNav, {
         props: {
           items: items
         }

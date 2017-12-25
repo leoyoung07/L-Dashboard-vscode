@@ -15,7 +15,7 @@
     "semi": [2, "always"],
     "no-console": "off",
     "quotes": ["error", "single"],
-    "no-undef": "warn"
+    "no-unused-vars": "warn"
   },
   "parserOptions": {
     "parser": "babel-eslint",

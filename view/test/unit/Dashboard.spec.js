@@ -14,7 +14,7 @@ describe('Dashboard.vue', () => {
   it('websocket service should be available', async() => {
     const vm = new Vue({
       el: document.createElement('div'),
-      render: (h) => h(Dashboard)
+      render: h => h(Dashboard)
     });
     await TestUtil.waitsFor(() => {
       expect(vm.$el.querySelector('button#debugSend').disabled).equal(false);
