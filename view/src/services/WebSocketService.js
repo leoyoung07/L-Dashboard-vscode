@@ -10,8 +10,8 @@ export default class WebSocketService {
     };
     this.send = (msg) => {
       this.ws.send(msg);
-    }
-  };
+    };
+  }
   ws = null;
   onmessage = null;
   onopen = null;

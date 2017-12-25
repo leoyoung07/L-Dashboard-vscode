@@ -1,9 +1,9 @@
 'use strict';
-import DashboardView from "../components/DashboardView.vue";
-import StorageService from "../services/StorageService";
-import ViewMonitor from "../components/ViewMonitor.vue";
-import ViewToDoList from "../components/ViewToDoList.vue";
-import ViewRegExpTool from "../components/ViewRegExpTool.vue";
+import DashboardView from '../components/DashboardView.vue';
+import StorageService from '../services/StorageService';
+import ViewMonitor from '../components/ViewMonitor.vue';
+import ViewToDoList from '../components/ViewToDoList.vue';
+import ViewRegExpTool from '../components/ViewRegExpTool.vue';
 
 ViewToDoList.init({
   storageService: new StorageService()
@@ -12,47 +12,47 @@ ViewToDoList.init({
 export default {
   routes: [
     {
-      path: "/dashboard/monitors",
+      path: '/dashboard/monitors',
       component: DashboardView,
       children: [
         {
-          path: "",
+          path: '',
           component: ViewMonitor
         }
       ],
       props: {
-        title: "Monitors"
+        title: 'Monitors'
       }
     },
     {
-      path: "/dashboard/to_do_list",
+      path: '/dashboard/to_do_list',
       component: DashboardView,
       children: [
         {
-          path: ":date",
+          path: ':date',
           component: ViewToDoList,
           props: true
         },
         {
-          path: "",
-          redirect: "today"
+          path: '',
+          redirect: 'today'
         }
       ],
       props: {
-        title: "To Do List"
+        title: 'To Do List'
       }
     },
     {
-      path: "/dashboard/reg_exp_tool",
+      path: '/dashboard/reg_exp_tool',
       component: DashboardView,
       children: [
         {
-          path: "",
+          path: '',
           component: ViewRegExpTool
         }
       ],
       props: {
-        title: "RegExp Tool"
+        title: 'RegExp Tool'
       }
     }
   ]

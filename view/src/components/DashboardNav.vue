@@ -2,9 +2,11 @@
   <div class="dashboard-nav-wrapper">
     <h2 class="dashboard-nav-title">L-Dashboard</h2>
     <ul class="dashboard-nav">
-      <li v-for="item in items" v-bind:key="item.id">
-        <router-link v-bind:to="item.path">
-          <i v-bind:class="item.icon"></i>
+      <li
+        v-for="item in items"
+        :key="item.id">
+        <router-link :to="item.path">
+          <i :class="item.icon"/>
           <p>{{ item.name }}</p>
         </router-link>
       </li>
@@ -14,9 +16,14 @@
 <script>
 'use strict';
 export default {
-  name: "dashboard-nav",
+  name: 'DashboardNav',
   props: {
-    items: Array
+    items: {
+      type: Array,
+      default: function () {
+        return [];
+      }
+    }
   }
 };
 </script>

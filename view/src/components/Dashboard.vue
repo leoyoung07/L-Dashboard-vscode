@@ -1,27 +1,34 @@
 <template>
-  <div id="dashborad" class="dashboard">
+  <div
+    id="dashborad"
+    class="dashboard">
     <div class="dashboard-wrapper">
       <div class="dashboard-left">
-        <dashboard-nav v-bind:items="items"></dashboard-nav>
+        <dashboard-nav :items="items"/>
       </div>
       <div class="dashboard-right">
-        <router-view></router-view>
+        <router-view/>
       </div>
     </div>
     <div class="dashboard-debug">
-      <h1>{{response}}</h1>
-      <input type="text" v-model="msg">
-      <button id="debugSend" @click="sendMsg();" v-bind:disabled="!wsEnabled">send</button>
+      <h1>{{ response }}</h1>
+      <input
+        type="text"
+        v-model="msg">
+      <button
+        id="debugSend"
+        @click="sendMsg();"
+        :disabled="!wsEnabled">send</button>
     </div>
   </div>
 </template>
 
 <script>
-"use strict";
-import DashboardNav from "./DashboardNav.vue";
-import Vue from "vue";
-import VueRouter from "vue-router";
-import DashboardRoute from "../routes/DashboardRoute";
+'use strict';
+import DashboardNav from './DashboardNav.vue';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import DashboardRoute from '../routes/DashboardRoute';
 
 Vue.use(VueRouter);
 
@@ -29,43 +36,43 @@ let ws = null;
 
 const router = new VueRouter(DashboardRoute);
 export default {
-  name: "dashborad",
+  name: 'Dashborad',
   init(options) {
     ws = options.ws;
   },
   data() {
     return {
-      msg: "",
+      msg: '',
       wsEnabled: false,
-      response: "",
+      response: '',
       items: [
         {
-          id: "monitors",
-          name: "Monitors",
-          path: "/dashboard/monitors",
-          icon: "icon-monitors"
+          id: 'monitors',
+          name: 'Monitors',
+          path: '/dashboard/monitors',
+          icon: 'icon-monitors'
         },
         {
-          id: "to_do_list",
-          name: "To Do List",
-          path: "/dashboard/to_do_list",
-          icon: "icon-to_do_list"
+          id: 'to_do_list',
+          name: 'To Do List',
+          path: '/dashboard/to_do_list',
+          icon: 'icon-to_do_list'
         },
         {
-          id: "reg_exp_tool",
-          name: "RegExp Tool",
-          path: "/dashboard/reg_exp_tool",
-          icon: "icon-reg_exp_tool"
+          id: 'reg_exp_tool',
+          name: 'RegExp Tool',
+          path: '/dashboard/reg_exp_tool',
+          icon: 'icon-reg_exp_tool'
         }
       ]
     };
   },
   created: function() {
-    ws.init("ws://localhost:7269");
+    ws.init('ws://localhost:7269');
     ws.onmessage = e => {
       this.response = e.data;
     };
-    ws.onopen = e => {
+    ws.onopen = () => {
       this.wsEnabled = true;
     };
   },

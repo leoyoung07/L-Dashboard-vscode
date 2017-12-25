@@ -1,30 +1,55 @@
 <template>
   <div class="v-todo-wrapper">
-    <widget-date-picker @date-select-change="onDateSelectChange" :date="currentDate"></widget-date-picker>
-    <h3>{{formattedDate}}</h3>
+    <widget-date-picker
+      @date-select-change="onDateSelectChange"
+      :date="currentDate"/>
+    <h3>{{ formattedDate }}</h3>
     <div class="v-todo-edit">
-      <input type="text" class="v-todo-input" v-model="currentItem.text" @keypress.enter="addItem" @blur="setCurrent({})" placeholder="What needs to be done?">
-      <button @click="addItem" class="v-todo-btn-add">ADD</button>
+      <input
+        type="text"
+        class="v-todo-input"
+        v-model="currentItem.text"
+        @keypress.enter="addItem"
+        @blur="setCurrent({})"
+        placeholder="What needs to be done?">
+      <button
+        @click="addItem"
+        class="v-todo-btn-add">ADD</button>
     </div>
     <ul class="v-todo-list">
-      <li v-for="(item, index) in items" :key="item.id" :class="{'v-todo-item-done': item.done}">
-        <input type="checkbox" class="v-todo-checkbox" v-model="item.done">
-        <span @click="setCurrent(item)" class="v-todo-text">{{ item.text }}</span>
-        <button @click="removeItem(index)" class="v-todo-btn-del">X</button>
+      <li
+        v-for="(item, index) in items"
+        :key="item.id"
+        :class="{'v-todo-item-done': item.done}">
+        <input
+          type="checkbox"
+          class="v-todo-checkbox"
+          v-model="item.done">
+        <span
+          @click="setCurrent(item)"
+          class="v-todo-text">{{ item.text }}</span>
+        <button
+          @click="removeItem(index)"
+          class="v-todo-btn-del">X</button>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-"use strict";
-import moment from "moment";
-import WidgetDatePicker from "./WidgetDatePicker.vue";
+'use strict';
+import moment from 'moment';
+import WidgetDatePicker from './WidgetDatePicker.vue';
 let storageService = null;
 export default {
-  name: "view-to-do-list",
+  name: 'ViewToDoList',
   props: {
-    date: String
+    date: {
+      type: String,
+      default: function () {
+        return '';
+      }
+    }
   },
   components: {
     WidgetDatePicker
@@ -47,10 +72,10 @@ export default {
       this.items.splice(index, 1);
     },
     addItem: function() {
-      if (typeof this.currentItem.text !== "string") {
+      if (typeof this.currentItem.text !== 'string') {
         return;
       }
-      if (this.currentItem.text.trim() === "") {
+      if (this.currentItem.text.trim() === '') {
         return;
       }
       this.items.push({
@@ -62,10 +87,10 @@ export default {
     },
     fetchData: async function() {
       this.currentDate = this.date;
-      if (!this.currentDate || this.currentDate === "today") {
-        this.currentDate = moment().format("YYYYMMDD");
+      if (!this.currentDate || this.currentDate === 'today') {
+        this.currentDate = moment().format('YYYYMMDD');
       }
-      console.log("fetchData", this.currentDate);
+      console.log('fetchData', this.currentDate);
       this.items = await storageService.get(`todo-items-${this.currentDate}`);
     },
     onDateSelectChange: function(date) {
@@ -85,42 +110,42 @@ export default {
       return max + 1;
     },
     formattedDate: function() {
-      return moment(this.currentDate).format("YYYY-MM-DD");
+      return moment(this.currentDate).format('YYYY-MM-DD');
     }
   },
   watch: {
     items: {
-      handler: async function(val, oldVal) {
+      handler: async function(val) {
         await storageService.update(`todo-items-${this.currentDate}`, val);
       },
       deep: true
     },
-    $route: "fetchData"
+    $route: 'fetchData'
   },
   beforeCreate() {
-    console.log("beforeCreate", this.items);
+    console.log('beforeCreate', this.items);
   },
   created() {
-    console.log("created", this.items);
+    console.log('created', this.items);
     this.fetchData();
   },
   beforeMount() {
-    console.log("beforeMount", this.items);
+    console.log('beforeMount', this.items);
   },
   mounted() {
-    console.log("mounted", this.items);
+    console.log('mounted', this.items);
   },
   beforeUpdate() {
-    console.log("beforeUpdate", this.items);
+    console.log('beforeUpdate', this.items);
   },
   updated() {
-    console.log("updated", this.items);
+    console.log('updated', this.items);
   },
   beforeDestroy() {
-    console.log("beforeDestroy", this.items);
+    console.log('beforeDestroy', this.items);
   },
   destroyed() {
-    console.log("destroyed", this.items);
+    console.log('destroyed', this.items);
   }
 };
 </script>

@@ -1,19 +1,21 @@
 <template>
-  <div id="app" class="app app-black-theme">
-    <dashboard></dashboard>
+  <div
+    id="app"
+    class="app app-black-theme">
+    <dashboard/>
   </div>
 </template>
 
 <script>
-import Dashboard from "./components/Dashboard.vue";
-import WebSocketServiceMock from "../test/mock/WebSocketServiceMock";
+import Dashboard from './components/Dashboard.vue';
+import WebSocketServiceMock from '../test/mock/WebSocketServiceMock';
 
 Dashboard.init({
   ws: new WebSocketServiceMock()
 });
 
 export default {
-  name: "app",
+  name: 'App',
   data() {
     return {
     };

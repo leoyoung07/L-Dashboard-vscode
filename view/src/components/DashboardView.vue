@@ -1,14 +1,21 @@
 <template>
   <div class="dashboard-view-wrapper">
-    <h1>{{title}}</h1>
-    <router-view></router-view>
+    <h1>{{ title }}</h1>
+    <router-view/>
   </div>
 </template>
 <script>
-"use strict";
+'use strict';
 export default {
-  name: "dashboard-view",
-  props: ["title"],
+  name: 'DashboardView',
+  props: {
+    title: {
+      type: String,
+      default: function () {
+        return '';
+      }
+    }
+  },
   data() {
     return {
     };

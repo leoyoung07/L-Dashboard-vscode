@@ -1,7 +1,12 @@
 <template>
   <div class="w-datepicker-wrapper">
-    <select v-model="selectedDate" @change="dateSelectChange">
-      <option v-for="(date, index) in dateList" v-bind:key="index"  v-bind:value="date">{{ formatedDate(date) }}</option>
+    <select
+      v-model="selectedDate"
+      @change="dateSelectChange">
+      <option
+        v-for="(date, index) in dateList"
+        :key="index"
+        :value="date">{{ formatedDate(date) }}</option>
     </select>
   </div>
 </template>
@@ -9,9 +14,14 @@
 'use strict';
 import moment from 'moment';
 export default {
-  name: "widget-date-picker",
+  name: 'WidgetDatePicker',
   props: {
-    date: String
+    date: {
+      type: String,
+      default: function () {
+        return '';
+      }
+    }
   },
   data() {
     return {
@@ -20,22 +30,26 @@ export default {
     };
   },
   methods: {
-    formatedDate: function (date) {
-      return moment(date).format('YYYY-MM-DD')
+    formatedDate: function(date) {
+      return moment(date).format('YYYY-MM-DD');
     },
-    dateSelectChange: function () {
+    dateSelectChange: function() {
       this.$emit('date-select-change', this.selectedDate);
     },
-    getRecentDays: function (daysAgo) {
+    getRecentDays: function(daysAgo) {
       const dateList = [];
       for (let i = 0; i <= daysAgo; i++) {
-        dateList.push(moment().add(i - daysAgo, 'days').format('YYYYMMDD'));
+        dateList.push(
+          moment()
+            .add(i - daysAgo, 'days')
+            .format('YYYYMMDD')
+        );
       }
       return dateList;
     }
   },
   watch: {
-    date: function (val, oldVal) {
+    date: function(val) {
       this.selectedDate = val;
     }
   }
