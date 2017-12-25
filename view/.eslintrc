@@ -1,16 +1,16 @@
 {
   "extends": [
-    "eslint:recommended",
-    "plugin:vue/strongly-recommended"
+    "eslint:recommended"
   ],
   "plugins": [
     "html"
   ],
   "env": {
-    "jasmine": true
+    "mocha": true
   },
   "rules": {
     "semi": [2, "always"],
     "no-console": "off"
-  }
+  },
+  "parser": "babel-eslint"
 }
