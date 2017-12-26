@@ -1,3 +1,4 @@
+'use strict';
 import chai from 'chai';
 import DashboardRoute from '../../src/routes/DashboardRoute';
 import DashboardView from '../../src/components/DashboardView.vue';

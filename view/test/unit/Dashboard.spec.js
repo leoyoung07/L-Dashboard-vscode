@@ -1,3 +1,4 @@
+'use strict';
 import Vue from 'vue';
 import Dashboard from '../../src/components/Dashboard.vue';
 import WebSocketServiceMock from '../mock/WebSocketServiceMock';

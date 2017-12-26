@@ -1,3 +1,4 @@
+'use strict';
 import chai from 'chai';
 import moment from 'moment';
 import WidgetDatePicker from '../../src/components/WidgetDatePicker.vue';
