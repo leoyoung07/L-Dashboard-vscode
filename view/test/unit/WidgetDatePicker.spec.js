@@ -2,43 +2,37 @@
 import chai from 'chai';
 import moment from 'moment';
 import WidgetDatePicker from '../../src/components/WidgetDatePicker.vue';
-import Vue from 'vue';
+import VueUtil from '../util/vue-util';
 
 const expect = chai.expect;
 
 describe('WidgetDatePicker.vue', () => {
   it('should select correct date', () => {
     const date = moment().add(-1, 'days').format('YYYYMMDD');
-    const vm = new Vue({
-      el: document.createElement('div'),
-      render: h => h(WidgetDatePicker, {
-        props: {
-          date: date
-        }
-      })
+    const vm = VueUtil.Mount(WidgetDatePicker, {
+      props: {
+        date: date
+      }
     });
     expect(
       vm.$el
-        .querySelector('div.w-datepicker-wrapper select')
-        .value
-      ).equals(date);
+      .querySelector('div.w-datepicker-wrapper select')
+      .value
+    ).equals(date);
   });
 
   it('should emit date-select-change event', () => {
     const date = moment().add(-1, 'days').format('YYYYMMDD');
     let selectedDate = '';
-    const vm = new Vue({
-      el: document.createElement('div'),
-      render: h => h(WidgetDatePicker, {
-        props: {
-          date: date
-        },
-        on: {
-          'date-select-change': function (date) {
-            selectedDate = date;
-          }
+    const vm = VueUtil.Mount(WidgetDatePicker, {
+      props: {
+        date: date
+      },
+      on: {
+        'date-select-change': function (date) {
+          selectedDate = date;
         }
-      })
+      }
     });
     const $select = vm.$el.querySelector('.w-datepicker-wrapper select');
     $select.value = date;
@@ -50,13 +44,10 @@ describe('WidgetDatePicker.vue', () => {
   it('should list recent days', () => {
     let daysAgo = 6;
     let date = moment().format('YYYYMMDD');
-    const vm = new Vue({
-      el: document.createElement('div'),
-      render: h => h(WidgetDatePicker, {
-        props: {
-          date: date
-        }
-      })
+    const vm = VueUtil.Mount(WidgetDatePicker, {
+      props: {
+        date: date
+      }
     });
     date = moment(date).add(-daysAgo, 'days').format('YYYYMMDD');
     const $options = vm.$el.querySelectorAll('div.w-datepicker-wrapper option');
@@ -69,6 +60,3 @@ describe('WidgetDatePicker.vue', () => {
     }
   });
 });
-
-// also see example testing a component with mocks at
-// https://github.com/vuejs/vueify-example/blob/master/test/unit/a.spec.js#L22-L43

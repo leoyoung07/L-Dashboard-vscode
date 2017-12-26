@@ -2,13 +2,11 @@
 import chai from 'chai';
 import DashboardNav from '../../src/components/DashboardNav.vue';
 import DashboardRoute from '../../src/routes/DashboardRoute';
-import Vue from 'vue';
+import VueUtil from '../util/vue-util';
 import VueRouter from 'vue-router';
 
 const expect = chai.expect;
-Vue.use(VueRouter);
 const router = new VueRouter(DashboardRoute);
-
 
 describe('DashboardNav.vue', () => {
   it('nav bar should render correct content', () => {
@@ -31,13 +29,11 @@ describe('DashboardNav.vue', () => {
         icon: 'icon-reg_exp_tool'
       }
     ];
-    const vm = new Vue({
-      el: document.createElement('div'),
-      render: h => h(DashboardNav, {
-        props: {
-          items: items
-        }
-      }),
+    const vm = VueUtil.Mount(DashboardNav, {
+      props: {
+        items: items
+      }
+    }, {
       router: router
     });
     const $navItems = vm.$el.querySelectorAll('ul.dashboard-nav li');
@@ -48,6 +44,3 @@ describe('DashboardNav.vue', () => {
     }
   });
 });
-
-// also see example testing a component with mocks at
-// https://github.com/vuejs/vueify-example/blob/master/test/unit/a.spec.js#L22-L43
