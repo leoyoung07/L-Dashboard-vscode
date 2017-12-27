@@ -1,7 +1,5 @@
 <template>
-  <div
-    id="app"
-    class="app app-black-theme">
+  <div id="app" class="app app-black-theme">
     <dashboard></dashboard>
   </div>
 </template>
@@ -16,7 +14,7 @@ Dashboard.init({
 
 export default {
   name: 'App',
-  data() {
+  data () {
     return {
     };
   },

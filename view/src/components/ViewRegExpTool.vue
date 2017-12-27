@@ -4,7 +4,7 @@
 <script>
 'use strict';
 export default {
-  
+
 };
 </script>
 <style>

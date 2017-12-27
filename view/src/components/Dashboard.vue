@@ -1,7 +1,5 @@
 <template>
-  <div
-    id="dashborad"
-    class="dashboard">
+  <div id="dashborad" class="dashboard">
     <div class="dashboard-wrapper">
       <div class="dashboard-left">
         <dashboard-nav :items="items"></dashboard-nav>
@@ -12,13 +10,8 @@
     </div>
     <div class="dashboard-debug">
       <h1>{{ response }}</h1>
-      <input
-        type="text"
-        v-model="msg">
-      <button
-        id="debugSend"
-        @click="sendMsg();"
-        :disabled="!wsEnabled">send</button>
+      <input type="text" v-model="msg">
+      <button id="debugSend" @click="sendMsg();" :disabled="!wsEnabled">send</button>
     </div>
   </div>
 </template>
@@ -37,10 +30,10 @@ let ws = null;
 const router = new VueRouter(DashboardRoute);
 export default {
   name: 'Dashborad',
-  init(options) {
+  init (options) {
     ws = options.ws;
   },
-  data() {
+  data () {
     return {
       msg: '',
       wsEnabled: false,
@@ -67,7 +60,7 @@ export default {
       ]
     };
   },
-  created: function() {
+  created: function () {
     ws.init('ws://localhost:7269');
     ws.onmessage = e => {
       this.response = e.data;
@@ -77,7 +70,7 @@ export default {
     };
   },
   methods: {
-    sendMsg: function() {
+    sendMsg: function () {
       ws.send(this.msg);
     }
   },

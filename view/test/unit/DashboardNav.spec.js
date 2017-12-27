@@ -11,24 +11,23 @@ const router = new VueRouter(DashboardRoute);
 describe('DashboardNav.vue', () => {
   it('nav bar should render correct content', () => {
     const items = [{
-        id: 'monitors',
-        name: 'Monitors',
-        path: '/dashboard/monitors',
-        icon: 'icon-monitors'
-      },
-      {
-        id: 'to_do_list',
-        name: 'To Do List',
-        path: '/dashboard/to_do_list',
-        icon: 'icon-to_do_list'
-      },
-      {
-        id: 'reg_exp_tool',
-        name: 'RegExp Tool',
-        path: '/dashboard/reg_exp_tool',
-        icon: 'icon-reg_exp_tool'
-      }
-    ];
+      id: 'monitors',
+      name: 'Monitors',
+      path: '/dashboard/monitors',
+      icon: 'icon-monitors'
+    },
+    {
+      id: 'to_do_list',
+      name: 'To Do List',
+      path: '/dashboard/to_do_list',
+      icon: 'icon-to_do_list'
+    },
+    {
+      id: 'reg_exp_tool',
+      name: 'RegExp Tool',
+      path: '/dashboard/reg_exp_tool',
+      icon: 'icon-reg_exp_tool'
+    }];
     const vm = VueUtil.Mount(DashboardNav, {
       props: {
         items: items

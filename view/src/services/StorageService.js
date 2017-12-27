@@ -1,6 +1,6 @@
 'use strict';
 export default class StorageService {
-  get(itemKey) {
+  get (itemKey) {
     return new Promise(resolve => {
       let data = localStorage.getItem(itemKey);
       console.log('get', data);
@@ -11,7 +11,7 @@ export default class StorageService {
       resolve(data);
     });
   }
-  update(itemKey, itemData) {
+  update (itemKey, itemData) {
     return new Promise(resolve => {
       console.log('update', itemData);
       localStorage.setItem(itemKey, JSON.stringify(itemData));

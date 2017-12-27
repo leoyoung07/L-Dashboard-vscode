@@ -1,8 +1,6 @@
 <template>
   <div class="v-todo-wrapper">
-    <widget-date-picker
-      @date-select-change="onDateSelectChange"
-      :date="currentDate">
+    <widget-date-picker @date-select-change="onDateSelectChange" :date="currentDate">
     </widget-date-picker>
     <h3>{{ formattedDate }}</h3>
     <div class="v-todo-edit">
@@ -13,25 +11,13 @@
         @keypress.enter="addItem"
         @blur="setCurrent({})"
         placeholder="What needs to be done?">
-      <button
-        @click="addItem"
-        class="v-todo-btn-add">ADD</button>
+      <button @click="addItem" class="v-todo-btn-add">ADD</button>
     </div>
     <ul class="v-todo-list">
-      <li
-        v-for="(item, index) in items"
-        :key="item.id"
-        :class="{'v-todo-item-done': item.done}">
-        <input
-          type="checkbox"
-          class="v-todo-checkbox"
-          v-model="item.done">
-        <span
-          @click="setCurrent(item)"
-          class="v-todo-text">{{ item.text }}</span>
-        <button
-          @click="removeItem(index)"
-          class="v-todo-btn-del">X</button>
+      <li v-for="(item, index) in items" :key="item.id" :class="{'v-todo-item-done': item.done}">
+        <input type="checkbox" class="v-todo-checkbox" v-model="item.done">
+        <span @click="setCurrent(item)" class="v-todo-text">{{ item.text }}</span>
+        <button @click="removeItem(index)" class="v-todo-btn-del">X</button>
       </li>
     </ul>
   </div>
@@ -55,10 +41,10 @@ export default {
   components: {
     WidgetDatePicker
   },
-  init(options) {
+  init (options) {
     storageService = options.storageService;
   },
-  data() {
+  data () {
     return {
       items: null,
       currentItem: {},
@@ -66,13 +52,13 @@ export default {
     };
   },
   methods: {
-    setCurrent: function(item) {
+    setCurrent: function (item) {
       this.currentItem = item;
     },
-    removeItem: function(index) {
+    removeItem: function (index) {
       this.items.splice(index, 1);
     },
-    addItem: function() {
+    addItem: function () {
       if (typeof this.currentItem.text !== 'string') {
         return;
       }
@@ -86,7 +72,7 @@ export default {
       });
       this.currentItem = {};
     },
-    fetchData: async function() {
+    fetchData: async function () {
       this.currentDate = this.date;
       if (!this.currentDate || this.currentDate === 'today') {
         this.currentDate = moment().format('YYYYMMDD');
@@ -94,13 +80,13 @@ export default {
       console.log('fetchData', this.currentDate);
       this.items = await storageService.get(`todo-items-${this.currentDate}`);
     },
-    onDateSelectChange: function(date) {
+    onDateSelectChange: function (date) {
       console.log('onDateSelectChange', date);
       this.$router.push(`/dashboard/to_do_list/${date}`);
     }
   },
   computed: {
-    nextItemId: function() {
+    nextItemId: function () {
       var max = -1;
       for (let i = 0; i < this.items.length; i++) {
         const item = this.items[i];
@@ -110,42 +96,42 @@ export default {
       }
       return max + 1;
     },
-    formattedDate: function() {
+    formattedDate: function () {
       return moment(this.currentDate).format('YYYY-MM-DD');
     }
   },
   watch: {
     items: {
-      handler: async function(val) {
+      handler: async function (val) {
         await storageService.update(`todo-items-${this.currentDate}`, val);
       },
       deep: true
     },
     $route: 'fetchData'
   },
-  beforeCreate() {
+  beforeCreate () {
     console.log('beforeCreate', this.items);
   },
-  created() {
+  created () {
     console.log('created', this.items);
     this.fetchData();
   },
-  beforeMount() {
+  beforeMount () {
     console.log('beforeMount', this.items);
   },
-  mounted() {
+  mounted () {
     console.log('mounted', this.items);
   },
-  beforeUpdate() {
+  beforeUpdate () {
     console.log('beforeUpdate', this.items);
   },
-  updated() {
+  updated () {
     console.log('updated', this.items);
   },
-  beforeDestroy() {
+  beforeDestroy () {
     console.log('beforeDestroy', this.items);
   },
-  destroyed() {
+  destroyed () {
     console.log('destroyed', this.items);
   }
 };
