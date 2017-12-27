@@ -4,10 +4,10 @@
     class="dashboard">
     <div class="dashboard-wrapper">
       <div class="dashboard-left">
-        <dashboard-nav :items="items"/>
+        <dashboard-nav :items="items"></dashboard-nav>
       </div>
       <div class="dashboard-right">
-        <router-view/>
+        <router-view></router-view>
       </div>
     </div>
     <div class="dashboard-debug">

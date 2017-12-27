@@ -2,7 +2,8 @@
   <div class="v-todo-wrapper">
     <widget-date-picker
       @date-select-change="onDateSelectChange"
-      :date="currentDate"/>
+      :date="currentDate">
+    </widget-date-picker>
     <h3>{{ formattedDate }}</h3>
     <div class="v-todo-edit">
       <input

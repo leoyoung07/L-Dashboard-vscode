@@ -2,7 +2,7 @@
   <div
     id="app"
     class="app app-black-theme">
-    <dashboard/>
+    <dashboard></dashboard>
   </div>
 </template>
 
