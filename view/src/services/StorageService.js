@@ -1,20 +1,20 @@
 'use strict';
 export default class StorageService {
-  get (itemKey) {
+  get (key) {
     return new Promise(resolve => {
-      let data = localStorage.getItem(itemKey);
-      console.log('get', data);
-      if (!data) {
-        data = '[]';
+      let value = localStorage.getItem(key);
+      console.log('get', value);
+      if (!value) {
+        value = '[]';
       }
-      data = JSON.parse(data);
-      resolve(data);
+      value = JSON.parse(value);
+      resolve(value);
     });
   }
-  update (itemKey, itemData) {
+  update (key, value) {
     return new Promise(resolve => {
-      console.log('update', itemData);
-      localStorage.setItem(itemKey, JSON.stringify(itemData));
+      console.log('update', value);
+      localStorage.setItem(key, JSON.stringify(value));
       resolve();
     });
   }
