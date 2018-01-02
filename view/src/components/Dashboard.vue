@@ -26,12 +26,13 @@ import DashboardRoute from '../routes/DashboardRoute';
 Vue.use(VueRouter);
 
 let ws = null;
+let WebSocketService = null;
 
 const router = new VueRouter(DashboardRoute);
 export default {
   name: 'Dashborad',
   init (options) {
-    ws = options.ws;
+    WebSocketService = options.ws;
   },
   data () {
     return {
@@ -61,7 +62,7 @@ export default {
     };
   },
   created: function () {
-    ws.init('ws://localhost:7269');
+    ws = new WebSocketService('ws://localhost:7269');
     ws.onmessage = e => {
       this.response = e.data;
     };

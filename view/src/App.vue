@@ -9,7 +9,7 @@ import Dashboard from './components/Dashboard.vue';
 import WebSocketServiceMock from '../test/mock/WebSocketServiceMock';
 
 Dashboard.init({
-  ws: new WebSocketServiceMock()
+  ws: WebSocketServiceMock
 });
 
 export default {
