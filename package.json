@@ -1,41 +1,45 @@
 {
-    "name": "l-toolset",
-    "displayName": "L-Toolset",
-    "description": "",
-    "version": "0.0.1",
-    "publisher": "LeoYoung",
-    "engines": {
-        "vscode": "^1.17.0"
-    },
-    "categories": [
-        "Other"
+  "name": "l-toolset",
+  "displayName": "L-Toolset",
+  "description": "",
+  "version": "0.0.1",
+  "publisher": "LeoYoung",
+  "engines": {
+    "vscode": "^1.17.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onCommand:extension.showToolset"],
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.showToolset",
+        "title": "Show Toolset"
+      }
     ],
-    "activationEvents": [
-        "onCommand:extension.showToolset"
-    ],
-    "main": "./out/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.showToolset",
-                "title": "Show Toolset"
-            }
-        ]
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.6.2",
-        "vscode": "^1.1.5",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
-    },
-    "dependencies": {
-        "ws": "^3.2.0"
+    "views": {
+      "explorer": [
+        {
+          "id": "l-toolset",
+          "name": "L-Toolset"
+        }
+      ]
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.2",
+    "vscode": "^1.1.5",
+    "@types/node": "^7.0.43",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "ws": "^3.2.0"
+  }
 }
