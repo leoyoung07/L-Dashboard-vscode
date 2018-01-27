@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
   // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand('extension.showDashboard', async () => {
+  let disposable = vscode.commands.registerCommand('extension.showToolset', async () => {
     // The code you place here will be executed every time your command is executed
 
     const indexHtml = 'file:///' + path.resolve(__dirname, '../view/index.html');
@@ -27,30 +27,8 @@ export function activate(context: vscode.ExtensionContext) {
       'vscode.previewHtml',
       vscode.Uri.parse(indexHtml),
       vscode.ViewColumn.Active,
-      'L-Dashboard');
+      'L-Toolset');
     setupWebsocketServer();
-
-  });
-
-  context.subscriptions.push(disposable);
-
-  disposable = vscode.commands.registerCommand('extension.startNginx', async () => {
-    // The code you place here will be executed every time your command is executed
-
-    exec('cd D:\\JAVA_3.2 & D: & call .\\start_nginx.bat', (err, stdout, stderr) => {
-      console.log(stdout);
-    });
-
-  });
-
-  context.subscriptions.push(disposable);
-
-  disposable = vscode.commands.registerCommand('extension.stopNginx', async () => {
-    // The code you place here will be executed every time your command is executed
-
-    exec('cd D:\\JAVA_3.2 & D: & call .\\stop_nginx.bat', (err, stdout, stderr) => {
-      console.log(stdout);
-    });
 
   });
 

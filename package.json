@@ -1,6 +1,6 @@
 {
-    "name": "l-dashboard",
-    "displayName": "L-Dashboard",
+    "name": "l-toolset",
+    "displayName": "L-Toolset",
     "description": "",
     "version": "0.0.1",
     "publisher": "LeoYoung",
@@ -11,24 +11,14 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.showDashboard",
-        "onCommand:extension.startNginx",
-        "onCommand:extension.stopNginx"
+        "onCommand:extension.showToolset"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.showDashboard",
-                "title": "Show Dashboard"
-            },
-            {
-                "command": "extension.startNginx",
-                "title": "Start Nginx"
-            },
-            {
-                "command": "extension.stopNginx",
-                "title": "Stop Nginx"
+                "command": "extension.showToolset",
+                "title": "Show Toolset"
             }
         ]
     },
