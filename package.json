@@ -8,13 +8,21 @@
     "vscode": "^1.17.0"
   },
   "categories": ["Other"],
-  "activationEvents": ["onCommand:extension.showToolset"],
+  "activationEvents": [
+    "onCommand:extension.showRegExpToolView",
+    "onCommand:extension.showTodoListView",
+    "onView:l-toolset"
+  ],
   "main": "./out/extension",
   "contributes": {
     "commands": [
       {
-        "command": "extension.showToolset",
-        "title": "Show Toolset"
+        "command": "extension.showRegExpToolView",
+        "title": "Show RegExp Tool View"
+      },
+      {
+        "command": "extension.showTodoListView",
+        "title": "Show Todo List View"
       }
     ],
     "views": {
