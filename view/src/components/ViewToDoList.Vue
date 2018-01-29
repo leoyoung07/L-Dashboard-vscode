@@ -82,7 +82,6 @@ export default {
     },
     onDateSelectChange: function (date) {
       console.log('onDateSelectChange', date);
-      this.$router.push(`/dashboard/to_do_list/${date}`);
     }
   },
   computed: {
@@ -106,8 +105,7 @@ export default {
         await storageService.update(`todo-items-${this.currentDate}`, val);
       },
       deep: true
-    },
-    $route: 'fetchData'
+    }
   },
   beforeCreate () {
     console.log('beforeCreate', this.items);
