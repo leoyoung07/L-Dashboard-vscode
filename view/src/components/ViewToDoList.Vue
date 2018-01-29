@@ -1,7 +1,5 @@
 <template>
   <div class="v-todo-wrapper">
-    <widget-date-picker @date-select-change="onDateSelectChange" :date="currentDate">
-    </widget-date-picker>
     <h3>{{ formattedDate }}</h3>
     <div class="v-todo-edit">
       <input
@@ -22,11 +20,9 @@
     </ul>
   </div>
 </template>
-
 <script>
 'use strict';
 import moment from 'moment';
-import WidgetDatePicker from './WidgetDatePicker.vue';
 let storageService = null;
 export default {
   name: 'ViewToDoList',
@@ -34,12 +30,9 @@ export default {
     date: {
       type: String,
       default: function () {
-        return '';
+        return moment().format('YYYYMMDD');
       }
     }
-  },
-  components: {
-    WidgetDatePicker
   },
   init (options) {
     storageService = options.storageService;
@@ -47,8 +40,7 @@ export default {
   data () {
     return {
       items: null,
-      currentItem: {},
-      currentDate: this.date
+      currentItem: {}
     };
   },
   methods: {
@@ -73,15 +65,8 @@ export default {
       this.currentItem = {};
     },
     fetchData: async function () {
-      this.currentDate = this.date;
-      if (!this.currentDate || this.currentDate === 'today') {
-        this.currentDate = moment().format('YYYYMMDD');
-      }
-      console.log('fetchData', this.currentDate);
-      this.items = await storageService.get(`todo-items-${this.currentDate}`);
-    },
-    onDateSelectChange: function (date) {
-      console.log('onDateSelectChange', date);
+      console.log('fetchData', this.date);
+      this.items = await storageService.get(`todo-items-${this.date}`);
     }
   },
   computed: {
@@ -96,23 +81,28 @@ export default {
       return max + 1;
     },
     formattedDate: function () {
-      return moment(this.currentDate).format('YYYY-MM-DD');
+      return moment(this.date).format('YYYY-MM-DD');
     }
   },
   watch: {
     items: {
       handler: async function (val) {
-        await storageService.update(`todo-items-${this.currentDate}`, val);
+        await storageService.update(`todo-items-${this.date}`, val);
       },
       deep: true
+    },
+    date: {
+      handler: async function (val) {
+        await this.fetchData();
+      }
     }
   },
   beforeCreate () {
     console.log('beforeCreate', this.items);
   },
-  created () {
+  async created () {
     console.log('created', this.items);
-    this.fetchData();
+    await this.fetchData();
   },
   beforeMount () {
     console.log('beforeMount', this.items);
@@ -227,4 +217,3 @@ export default {
   color: #808080;
 }
 </style>
-

@@ -1,12 +1,16 @@
 <template>
   <div id="app" class="app app-black-theme">
-    <view-to-do-list></view-to-do-list>
+    <widget-date-picker @date-select-change="onDateSelectChange" :date="date">
+    </widget-date-picker>
+    <view-to-do-list :date="date"></view-to-do-list>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
 import StorageService from '../../services/StorageService';
 import ViewToDoList from '../../components/ViewToDoList.vue';
+import WidgetDatePicker from '../../components/WidgetDatePicker.vue';
 
 ViewToDoList.init({
   storageService: new StorageService()
@@ -16,10 +20,18 @@ export default {
   name: 'App',
   data () {
     return {
+      date: moment().format('YYYYMMDD')
     };
   },
   components: {
-    ViewToDoList
+    ViewToDoList,
+    WidgetDatePicker
+  },
+  methods: {
+    onDateSelectChange: function (date) {
+      console.log('onDateSelectChange', date);
+      this.date = date;
+    }
   }
 };
 </script>
