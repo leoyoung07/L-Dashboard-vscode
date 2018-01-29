@@ -4,7 +4,7 @@
     "plugin:vue/strongly-recommended"
   ],
   "env": {
-    "mocha": true,
+    "jest": true,
     "browser": true,
     "es6": true,
     "node": true
