@@ -9,6 +9,7 @@
 <script>
 import moment from 'moment';
 import StorageService from '../../services/StorageService';
+import Util from '../../util/util';
 import ViewToDoList from '../../components/ViewToDoList.vue';
 import WidgetDatePicker from '../../components/WidgetDatePicker.vue';
 
@@ -29,7 +30,7 @@ export default {
   },
   methods: {
     onDateSelectChange: function (date) {
-      console.log('onDateSelectChange', date);
+      Util.debug('onDateSelectChange', date);
       this.date = date;
     }
   }

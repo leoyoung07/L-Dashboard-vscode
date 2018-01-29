@@ -23,6 +23,7 @@
 <script>
 'use strict';
 import moment from 'moment';
+import Util from '../util/util';
 let storageService = null;
 export default {
   name: 'ViewToDoList',
@@ -65,7 +66,7 @@ export default {
       this.currentItem = {};
     },
     fetchData: async function () {
-      console.log('fetchData', this.date);
+      Util.debug('fetchData', this.date);
       this.items = await storageService.get(`todo-items-${this.date}`);
     }
   },
@@ -98,29 +99,29 @@ export default {
     }
   },
   beforeCreate () {
-    console.log('beforeCreate', this.items);
+    Util.debug('beforeCreate', this.items);
   },
   async created () {
-    console.log('created', this.items);
+    Util.debug('created', this.items);
     await this.fetchData();
   },
   beforeMount () {
-    console.log('beforeMount', this.items);
+    Util.debug('beforeMount', this.items);
   },
   mounted () {
-    console.log('mounted', this.items);
+    Util.debug('mounted', this.items);
   },
   beforeUpdate () {
-    console.log('beforeUpdate', this.items);
+    Util.debug('beforeUpdate', this.items);
   },
   updated () {
-    console.log('updated', this.items);
+    Util.debug('updated', this.items);
   },
   beforeDestroy () {
-    console.log('beforeDestroy', this.items);
+    Util.debug('beforeDestroy', this.items);
   },
   destroyed () {
-    console.log('destroyed', this.items);
+    Util.debug('destroyed', this.items);
   }
 };
 </script>
