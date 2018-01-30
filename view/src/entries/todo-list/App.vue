@@ -1,8 +1,10 @@
 <template>
   <div id="app" class="app app-black-theme">
-    <widget-date-picker @date-select-change="onDateSelectChange" :date="date">
+    <widget-date-picker @date-select-change="onDateSelectChange" :date="date" top="5px" right="5px">
     </widget-date-picker>
-    <view-to-do-list :date="date"></view-to-do-list>
+    <div>
+      <view-to-do-list :date="date"></view-to-do-list>
+    </div>
   </div>
 </template>
 
@@ -42,6 +44,7 @@ export default {
   height: 100%;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 .app-black-theme {
   background: #1E1E1E;

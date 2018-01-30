@@ -1,7 +1,7 @@
 <template>
   <div class="v-todo-wrapper">
-    <h3>{{ formattedDate }}</h3>
-    <div class="v-todo-edit">
+    <h3 class="v-todo-header">{{ formattedDate }}</h3>
+    <div class="v-todo-edit" v-show="isToday()">
       <input
         type="text"
         class="v-todo-input"
@@ -68,6 +68,9 @@ export default {
     fetchData: async function () {
       Util.debug('fetchData', this.date);
       this.items = await storageService.get(`todo-items-${this.date}`);
+    },
+    isToday: function () {
+      return this.date === moment().format('YYYYMMDD');
     }
   },
   computed: {
@@ -98,30 +101,9 @@ export default {
       }
     }
   },
-  beforeCreate () {
-    Util.debug('beforeCreate', this.items);
-  },
   async created () {
     Util.debug('created', this.items);
     await this.fetchData();
-  },
-  beforeMount () {
-    Util.debug('beforeMount', this.items);
-  },
-  mounted () {
-    Util.debug('mounted', this.items);
-  },
-  beforeUpdate () {
-    Util.debug('beforeUpdate', this.items);
-  },
-  updated () {
-    Util.debug('updated', this.items);
-  },
-  beforeDestroy () {
-    Util.debug('beforeDestroy', this.items);
-  },
-  destroyed () {
-    Util.debug('destroyed', this.items);
   }
 };
 </script>
@@ -131,6 +113,10 @@ export default {
   width: 100%;
   margin: 0;
   padding: 0;
+}
+.v-todo-header {
+  margin: 0;
+  padding: 15px;
 }
 .v-todo-input {
   padding: 16px 16px 16px 60px;
