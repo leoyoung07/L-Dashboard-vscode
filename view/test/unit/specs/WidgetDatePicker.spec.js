@@ -14,8 +14,12 @@ describe('WidgetDatePicker.vue', () => {
       }
     });
     expect(
-      vm.$el.querySelector('div.w-datepicker-wrapper select').value
-    ).toBe(date);
+      vm
+        .$el
+        .querySelector('.w-datepicker-select-item')
+        .textContent
+        .trim()
+    ).toBe(moment(date).format('YYYY-MM-DD'));
   });
 
   it('should emit date-select-change event', () => {
@@ -33,9 +37,8 @@ describe('WidgetDatePicker.vue', () => {
         }
       }
     });
-    const $select = vm.$el.querySelector('.w-datepicker-wrapper select');
-    $select.value = date;
-    const evt = new Event('change');
+    const $select = vm.$el.querySelectorAll('.w-datepicker-select-list li')[5];
+    const evt = new Event('click');
     $select.dispatchEvent(evt);
     expect(selectedDate).toBe(date);
   });
@@ -51,12 +54,11 @@ describe('WidgetDatePicker.vue', () => {
     date = moment(date)
       .add(-daysAgo, 'days')
       .format('YYYYMMDD');
-    const $options = vm.$el.querySelectorAll('div.w-datepicker-wrapper option');
+    const $options = vm.$el.querySelectorAll('.w-datepicker-select-list li');
     expect($options.length).toBe(daysAgo + 1);
     for (let i = 0; i < $options.length; i++) {
       const $option = $options[i];
-      expect($option.value).toBe(date);
-      expect($option.textContent).toBe(moment(date).format('YYYY-MM-DD'));
+      expect($option.textContent.trim()).toBe(moment(date).format('YYYY-MM-DD'));
       date = moment(date)
         .add(1, 'days')
         .format('YYYYMMDD');
