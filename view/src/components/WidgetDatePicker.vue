@@ -1,24 +1,17 @@
 <template>
-  <div
-    class="w-datepicker-wrapper"
-    :style="{top: top, left: left, bottom: bottom, right: right}">
-    <!-- <select id="dateSelect" v-model="selectedDate" @change="dateSelectChange">
-      <option v-for="(date, index) in dateList" :key="index" :value="date">{{ formatedDate(date) }}</option>
-    </select> -->
-    <div
-      class="w-datepicker-flex-center w-datepicker-sm-icon"
-      @click="toggleSelectVisible">
+  <div class="w-datepicker-wrapper"
+       v-clickoutside="handleClose"
+       :style="{top: top, left: left, bottom: bottom, right: right}">
+    <div class="w-datepicker-flex-center w-datepicker-sm-icon"
+         @click="toggleSelectVisible">
       <i class="w-datepicker-icon-history"></i>
     </div>
-    <ul
-      class="w-datepicker-select-list"
-      v-show="isSelectVisible"
-      @blur="isSelectVisible=false">
-      <li
-        v-for="(date, index) in dateList"
-        :key="index"
-        @click="dateSelectChange(date)"
-        :class="{ 'w-datepicker-select-item': date === selectedDate }">
+    <ul class="w-datepicker-select-list"
+        v-show="isSelectVisible">
+      <li v-for="(date, index) in dateList"
+          :key="index"
+          @click="dateSelectChange(date)"
+          :class="{ 'w-datepicker-select-item': date === selectedDate }">
         {{ formatedDate(date) }}
       </li>
     </ul>
@@ -26,6 +19,7 @@
 </template>
 <script>
 'use strict';
+import clickoutside from '../directives/clickoutside';
 import moment from 'moment';
 export default {
   name: 'WidgetDatePicker',
@@ -68,6 +62,9 @@ export default {
       isSelectVisible: false
     };
   },
+  directives: {
+    clickoutside
+  },
   methods: {
     formatedDate: function (date) {
       return moment(date).format('YYYY-MM-DD');
@@ -90,6 +87,9 @@ export default {
     },
     toggleSelectVisible: function () {
       this.isSelectVisible = !this.isSelectVisible;
+    },
+    handleClose: function () {
+      this.isSelectVisible = false;
     }
   },
   watch: {
@@ -134,6 +134,7 @@ export default {
   padding: 0;
   align-items: center;
   border-radius: 3px;
+  user-select: none;
 }
 .w-datepicker-select-list li{
   list-style: none;
