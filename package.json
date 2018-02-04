@@ -3,13 +3,11 @@
   "displayName": "L-Toolset",
   "description": "",
   "version": "0.0.1",
-  "publisher": "LeoYoung",
+  "publisher": "leoyoung",
   "engines": {
     "vscode": "^1.17.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Other"],
   "activationEvents": [
     "onCommand:extension.showRegExpToolView",
     "onCommand:extension.showTodoListView",
@@ -24,7 +22,11 @@
       },
       {
         "command": "extension.showTodoListView",
-        "title": "Show Todo List View"
+        "title": "Show Todo List View",
+        "icon": {
+          "dark": "src/assets/ic_done_all_white_24px.svg",
+          "light": "src/assets/ic_done_all_black_24px.svg"
+        }
       }
     ],
     "views": {
