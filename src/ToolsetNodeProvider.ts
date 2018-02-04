@@ -28,9 +28,14 @@ export default class ToolsetNodeProvider implements vscode.TreeDataProvider<Tool
         dark: this.context.asAbsolutePath('assets/ic_done_white_24px.svg'),
         light: this.context.asAbsolutePath('assets/ic_done_black_24px.svg')
       }),
-      new ToolsetNodeItem('RegExp Tool', vscode.TreeItemCollapsibleState.None, {
+      new ToolsetNodeItem(
+        'RegExp Tool',
+        vscode.TreeItemCollapsibleState.None, {
         command: 'extension.showRegExpToolView',
         title: 'RegExp Tool'
+      }, {
+        dark: this.context.asAbsolutePath('assets/ic_code_white_24px.svg'),
+        light: this.context.asAbsolutePath('assets/ic_code_black_24px.svg')
       })
     ];
   }

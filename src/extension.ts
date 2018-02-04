@@ -31,8 +31,6 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.Uri.parse(indexHtml),
       vscode.ViewColumn.Active,
       'Todo List | L-Toolset');
-
-    console.log('showTodoListView');
   });
 
   context.subscriptions.push(disposable);
@@ -40,14 +38,12 @@ export function activate(context: vscode.ExtensionContext) {
   disposable = vscode.commands.registerCommand('extension.showRegExpToolView', async () => {
     // The code you place here will be executed every time your command is executed
 
-    // const indexHtml = 'file:///' + path.resolve(__dirname, '../view/index.html');
-    // await vscode.commands.executeCommand(
-    //   'vscode.previewHtml',
-    //   vscode.Uri.parse(indexHtml),
-    //   vscode.ViewColumn.Active,
-    //   'L-Toolset');
-
-    console.log('showRegExpToolView');
+    const indexHtml = 'file:///' + path.resolve(__dirname, './view/regexp-tool/entry.html');
+    await vscode.commands.executeCommand(
+      'vscode.previewHtml',
+      vscode.Uri.parse(indexHtml),
+      vscode.ViewColumn.Active,
+      'RegExp Tool | L-Toolset');
   });
 
   context.subscriptions.push(disposable);

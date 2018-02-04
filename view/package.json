@@ -7,6 +7,8 @@
   "scripts": {
     "build-todo-list": "parcel build ./src/entries/todo-list/entry.html --public-url . -d ../out/view/todo-list",
     "dev-todo-list": "parcel -p 8888 ./src/entries/todo-list/view.html",
+    "build-regexp-tool": "parcel build ./src/entries/regexp-tool/entry.html --public-url . -d ../out/view/regexp-tool",
+    "dev-regexp-tool": "parcel -p 8888 ./src/entries/regexp-tool/view.html",
     "test": "jest",
     "lint": "eslint --ext .js,.vue src test/unit"
   },
