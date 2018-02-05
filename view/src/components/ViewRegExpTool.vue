@@ -112,14 +112,12 @@ export default {
 }
 
 .v-regexp-tool-textarea {
-  min-height: 40%;
+  height: 40%;
 }
 
 .v-regexp-tool-input input, .v-regexp-tool-textarea textarea{
   display: inline-block;
   width: 100%;
-  height: 100%;
-  line-height: 100%;
   box-sizing: border-box;
   padding: 16px;
   border: none;
@@ -128,6 +126,11 @@ export default {
   font-size: 24px;
   outline: none;
   color: inherit;
+}
+
+.v-regexp-tool-textarea textarea{
+  resize: none;
+  height: 100%;
 }
 
 .v-regexp-tool-input input::-webkit-input-placeholder,

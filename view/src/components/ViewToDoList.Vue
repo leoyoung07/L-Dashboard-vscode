@@ -85,7 +85,7 @@ export default {
       return max + 1;
     },
     formattedDate: function () {
-      return moment(this.date).format('YYYY-MM-DD');
+      return moment(this.date).format('dddd, MMMM Do YYYY');
     }
   },
   watch: {
@@ -112,11 +112,12 @@ export default {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0 30px;
+  box-sizing: border-box;
 }
 .v-todo-header {
   margin: 0;
-  padding: 15px;
+  padding: 25px 0;
 }
 .v-todo-input {
   padding: 16px 16px 16px 60px;
@@ -130,7 +131,7 @@ export default {
   color: inherit;
   outline: none;
   -webkit-font-smoothing: antialiased;
-  width: 69%;
+  width: 85%;
 }
 .v-todo-input::-webkit-input-placeholder {
   font-style: italic;
@@ -147,7 +148,7 @@ export default {
   color: inherit;
   outline: none;
   -webkit-font-smoothing: antialiased;
-  width: 12%;
+  width: 15%;
   cursor: pointer;
 }
 .v-todo-text {
@@ -159,12 +160,15 @@ export default {
   padding: 0;
   list-style: none;
   border-top: 1px solid #adadad;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .v-todo-list li {
-  position: relative;
   font-size: 24px;
   border-bottom: 1px solid #585858;
   padding: 8px;
+  width: 100%;
 }
 .v-todo-list li:last-child {
   border-bottom: none;
@@ -202,5 +206,9 @@ export default {
 .v-todo-item-done .v-todo-text {
   text-decoration: line-through;
   color: #808080;
+}
+.v-todo-edit {
+  display: flex;
+  justify-content: center;
 }
 </style>
