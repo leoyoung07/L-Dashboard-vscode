@@ -2,7 +2,7 @@
   "name": "l-toolset",
   "displayName": "L-Toolset",
   "description": "",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "leoyoung",
   "engines": {
     "vscode": "^1.17.0"
