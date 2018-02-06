@@ -94,6 +94,7 @@ export default {
   padding: 0;
   width: 100%;
   height: 100%;
+  font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
 }
 
 .v-regexp-tool-input,
@@ -126,6 +127,7 @@ export default {
   font-size: 24px;
   outline: none;
   color: inherit;
+  font-family: inherit;
 }
 
 .v-regexp-tool-textarea textarea{
