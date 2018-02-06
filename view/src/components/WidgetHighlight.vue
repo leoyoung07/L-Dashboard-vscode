@@ -4,14 +4,21 @@
       v-for="(item, index) in items"
       :key="index"
       :class="{'w-highlight': item.match}"
-    >{{ item.text }}</span>
+      v-html="getEncodedHtml(item.text)"
+    ></span>
   </div>
 </template>
 
 <script>
 'use strict';
+import HtmlEntities from '../util/HtmlEntities';
 export default {
   name: 'WidgetHighlight',
+  methods: {
+    getEncodedHtml (html) {
+      return HtmlEntities.encode(html);
+    }
+  },
   props: {
     items: {
       type: Array,
