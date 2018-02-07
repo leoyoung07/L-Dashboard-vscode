@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import Util from '../../util/util';
 import ViewRegExpTool from '../../components/ViewRegExpTool.vue';
 
 export default {

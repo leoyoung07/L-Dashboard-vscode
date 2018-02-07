@@ -1,21 +1,24 @@
 'use strict';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { exec } from "child_process";
-import * as crypto from 'crypto';
-import * as http from 'http';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import * as websocket from 'ws';
 import ToolsetNodeProvider from './ToolsetNodeProvider';
+import WebSocketServer from './WebSocketServer';
 
-let wss: websocket.Server = null;
+let wss: WebSocketServer = null;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
   // Use the console to output diagnostic information (console.log) and errors (console.error)
+
+  try {
+    wss = new WebSocketServer();
+  } catch (error) {
+    console.log(error);
+  }
 
   vscode.window.registerTreeDataProvider('l-toolset', new ToolsetNodeProvider(context));
 
@@ -47,42 +50,12 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(disposable);
-
-  try {
-    setupWebsocketServer();
-  } catch (error) {
-    vscode.window.showErrorMessage(error);
-  }
-}
-
-function setupWebsocketServer() {
-  if (wss != null) {
-    return;
-  }
-  wss = new websocket.Server({ port: 7269 });
-  wss.on('connection', (ws) => {
-    ws.on('message', (message) => {
-      console.log('received: %s', message);
-      ws.send('res:' + message);
-    });
-    ws.on('close', (e) => {
-      console.log(e);
-    });
-    ws.send('something');
-  });
-  wss.on('listening', (e) => {
-    console.log(e);
-  });
-  wss.on('error', (e) => {
-    console.log(e);
-  });
 }
 
 // this method is called when your extension is deactivated
 export function deactivate() {
   //
-  console.log('deactivate');
-  wss.close((e) => {
-    wss = null;
-  });
+  if (wss) {
+    wss.Close();
+  }
 }
