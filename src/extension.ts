@@ -4,6 +4,7 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 import ToolsetNodeProvider from './ToolsetNodeProvider';
+import WebSocketRequestHandler from './WebSocketRequestHandler';
 import WebSocketServer from './WebSocketServer';
 
 let wss: WebSocketServer = null;
@@ -15,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
 
   try {
-    wss = new WebSocketServer();
+    wss = new WebSocketServer(7269, WebSocketRequestHandler.Handler);
   } catch (error) {
     console.log(error);
   }

@@ -7,7 +7,9 @@
   "engines": {
     "vscode": "^1.17.0"
   },
-  "categories": ["Other"],
+  "categories": [
+    "Other"
+  ],
   "activationEvents": [
     "onCommand:extension.showRegExpToolView",
     "onCommand:extension.showTodoListView",
@@ -46,12 +48,13 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
-    "typescript": "^2.6.2",
-    "vscode": "^1.1.5",
+    "@types/mocha": "^2.2.42",
     "@types/node": "^7.0.43",
-    "@types/mocha": "^2.2.42"
+    "@types/ws": "^4.0.0",
+    "typescript": "^2.6.2",
+    "vscode": "^1.1.5"
   },
   "dependencies": {
-    "ws": "^3.2.0"
+    "ws": "^4.0.0"
   }
 }
