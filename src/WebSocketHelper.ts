@@ -8,17 +8,19 @@ export default class WebSocketHelper {
   public static Handler(msg: WebSocket.Data, ws: WebSocket) {
     try {
       const msgObj: IWebSocketMsg = JSON.parse(msg as string);
+      let response = '';
       switch (msgObj.type) {
         case WebSocketMsgType.TODO_LIST:
-          ToDoListHelper.MsgHandler(msgObj, ws);
+          response = ToDoListHelper.MsgHandler(msgObj);
           break;
         case WebSocketMsgType.NETWORK_TOOL:
-          NetworkHelper.MsgHandler(msgObj, ws);
+          response = NetworkHelper.MsgHandler(msgObj);
           break;
         default:
-          WebSocketHelper.DefaultMsgHandler(msgObj, ws);
+          response = WebSocketHelper.DefaultMsgHandler(msgObj);
           break;
       }
+      ws.send(response);
     } catch (error) {
       ws.send(JSON.stringify({
         errCode: ErrorCode.PROCESS_MSG_ERROR,
@@ -27,11 +29,11 @@ export default class WebSocketHelper {
     }
   }
 
-  private static DefaultMsgHandler(msg: IWebSocketMsg, ws: WebSocket) {
-    ws.send(JSON.stringify({
+  private static DefaultMsgHandler(msg: IWebSocketMsg) {
+    return JSON.stringify({
       errCode: ErrorCode.UNKNOWN_MSG_TYPE,
       errMsg: 'unknown message type'
-    }));
+    });
   }
 }
 

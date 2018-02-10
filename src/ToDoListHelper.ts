@@ -1,11 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as WebSocket from 'ws';
 import { ErrorCode, ToDoListAction, WebSocketMsgType } from './constants';
 import { IWebSocketMsg } from './WebSocketHelper';
 
 export default class ToDoListHelper {
-  public static MsgHandler(msg: IWebSocketMsg, ws: WebSocket) {
+  public static MsgHandler(msg: IWebSocketMsg) {
     let response = {};
     try {
       switch (msg.action) {
@@ -34,7 +33,7 @@ export default class ToDoListHelper {
         errMsg: `Process action error: ${error}`
       };
     }
-    ws.send(JSON.stringify(response));
+    return JSON.stringify(response);
   }
 
   private static readonly DataRoot = path.resolve(__dirname, 'data', 'todo_list');
