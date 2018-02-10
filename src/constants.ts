@@ -8,8 +8,10 @@ export enum ToDoListAction {
   UPDATE = 'UPDATE'
 }
 
-export interface IWebSocketMsg {
-  type: WebSocketMsgType;
-  action: ToDoListAction | string;
-  data: object;
+export enum ErrorCode {
+  SUCCESS = 'E000',
+  PROCESS_MSG_ERROR = 'E001',
+  UNKNOWN_MSG_TYPE = 'E002',
+  UNKNOWN_ACTION = 'E003',
+  PROCESS_ACTION_ERROR = 'E004'
 }

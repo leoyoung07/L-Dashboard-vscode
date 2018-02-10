@@ -1,11 +1,12 @@
 import * as WebSocket from 'ws';
-import { IWebSocketMsg, WebSocketMsgType } from './constants';
+import { ErrorCode, WebSocketMsgType } from './constants';
+import { IWebSocketMsg } from './WebSocketHelper';
 
 export default class NetworkToolHelper {
   public static MsgHandler(msg: IWebSocketMsg, ws: WebSocket) {
     ws.send(JSON.stringify({
       data: 'success',
-      errCode: 'E000'
+      errCode: ErrorCode.SUCCESS
     }));
   }
 }

@@ -1,5 +1,5 @@
 import * as WebSocket from 'ws';
-import { IWebSocketMsg, ToDoListAction, WebSocketMsgType } from './constants';
+import { ErrorCode, ToDoListAction, WebSocketMsgType } from './constants';
 import NetworkHelper from './NetworkToolHelper';
 import ToDoListHelper from './ToDoListHelper';
 
@@ -21,7 +21,7 @@ export default class WebSocketHelper {
       }
     } catch (error) {
       ws.send(JSON.stringify({
-        errCode: 'E001',
+        errCode: ErrorCode.PROCESS_MSG_ERROR,
         errMsg: `Process message error: ${error}`
       }));
     }
@@ -29,8 +29,14 @@ export default class WebSocketHelper {
 
   private static DefaultMsgHandler(msg: IWebSocketMsg, ws: WebSocket) {
     ws.send(JSON.stringify({
-      errCode: 'E002',
+      errCode: ErrorCode.UNKNOWN_MSG_TYPE,
       errMsg: 'unknown message type'
     }));
   }
+}
+
+export interface IWebSocketMsg {
+  type: WebSocketMsgType;
+  action: ToDoListAction | string;
+  data: any;
 }

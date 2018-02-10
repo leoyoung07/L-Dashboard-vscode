@@ -17,6 +17,9 @@ export default class WebSocketServer {
       ws.on('close', (e) => {
         console.log(e);
       });
+      ws.on('error', (e) => {
+        console.log(e);
+      });
       ws.send('connected');
     });
     this.wss.on('listening', (e) => {
