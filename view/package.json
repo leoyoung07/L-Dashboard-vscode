@@ -9,6 +9,8 @@
     "dev-todo-list": "parcel -p 8888 ./src/entries/todo-list/view.html",
     "build-regexp-tool": "parcel build ./src/entries/regexp-tool/entry.html --public-url . -d ../out/view/regexp-tool",
     "dev-regexp-tool": "parcel -p 8888 ./src/entries/regexp-tool/view.html",
+    "build-network-tool": "parcel build ./src/entries/network-tool/entry.html --public-url . -d ../out/view/network-tool",
+    "dev-network-tool": "parcel -p 8888 ./src/entries/network-tool/view.html",
     "test": "jest",
     "lint": "eslint --ext .js,.vue src test/unit"
   },
