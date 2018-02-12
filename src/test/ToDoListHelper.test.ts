@@ -1,9 +1,29 @@
 import * as assert from 'assert';
+import * as fs from 'fs';
+import * as path from 'path';
 import { ErrorCode, ToDoListAction, WebSocketMsgType } from '../constants';
 import ToDoListHelper from '../ToDoListHelper';
 import { IWebSocketMsg } from '../WebSocketHelper';
 
 suite('ToDoListHelper Tests', () => {
+
+  const DataRoot = path.resolve(__dirname, '..', 'data', 'todo_list');
+
+  const testFilePath = path.join(DataRoot, '20180212.json');
+
+  const testData = JSON.stringify([{
+    done: true,
+    text: 'test'
+  }]);
+
+  suiteSetup(() => {
+    fs.writeFileSync(testFilePath, testData, 'utf-8');
+  });
+
+  suiteTeardown(() => {
+    fs.unlinkSync(testFilePath);
+  });
+
   test('MsgHandler update action', () => {
     const request: IWebSocketMsg = {
       action: ToDoListAction.UPDATE,
@@ -22,8 +42,18 @@ suite('ToDoListHelper Tests', () => {
     });
     assert.equal(response, expected);
   });
-  test.skip('MsgHandler fetch action', () => {
-    // TODO: test fetch action
+  test('MsgHandler fetch action', () => {
+    const request: IWebSocketMsg = {
+      action: ToDoListAction.FETCH,
+      data: '20180212',
+      type: WebSocketMsgType.TODO_LIST
+    };
+    const response = ToDoListHelper.MsgHandler(request);
+    const expected = JSON.stringify({
+      data: testData,
+      errCode: ErrorCode.SUCCESS
+    });
+    assert.equal(response, expected);
   });
   test('MsgHandler unknown action', () => {
     const request: IWebSocketMsg = {
