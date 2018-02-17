@@ -27,4 +27,16 @@ export default class WebSocketService {
 
   get send () { return this._send; };
   set send (value) { this._send = value; };
+
+  request (data) {
+    return new Promise((resolve, reject) => {
+      this._ws.send(data);
+      this._ws.onmessage = (res) => {
+        resolve(res);
+      };
+      this._ws.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
 }
